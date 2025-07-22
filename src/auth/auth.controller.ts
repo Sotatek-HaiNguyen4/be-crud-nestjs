@@ -5,6 +5,12 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Post('google-login')
+  async googleLogin(@Body('credential') credential: string) {
+    const result = await this.authService.validateGoogleToken(credential);
+    return result;
+  }
+
   @Post('register')
   async register(@Body() data: any) {
     return this.authService.register(data);

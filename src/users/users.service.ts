@@ -12,6 +12,21 @@ export class UsersService {
     private userRepo: Repository<User>,
   ) {}
 
+  async findOrCreateByGoogle(payload: any) {
+    const user = await this.userRepo.findOneBy({ email: payload.email });
+
+    if (user) return user;
+
+    const newUser = this.userRepo.create({
+      email: payload.email,
+      name: payload.name,
+      avatar: payload.picture,
+      googleId: payload.sub,
+    });
+
+    return this.userRepo.save(newUser);
+  }
+
   create(dto: CreateUserDto) {
     const user = this.userRepo.create(dto);
     return this.userRepo.save(user);
