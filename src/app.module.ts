@@ -5,6 +5,9 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { ProfileController } from './profile/profile.controller';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [
